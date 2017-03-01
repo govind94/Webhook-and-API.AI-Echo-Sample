@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+var https = require('https');
 
 const restService = express();
 
@@ -16,9 +17,23 @@ restService.post('/echo', function(req, res) {
     var speech = '';
     if (req.body.result.metadata.intentName === 'weather')
         speech = 'weather intent was called';
-    else if (req.body.result.metadata.intentName === 'directions')
-        speech = 'directions intent was called';
-    else speech = 'No intent was called';
+    else if (req.body.result.metadata.intentName === 'directions') {
+        //speech = 'directions intent was called';
+        var url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=New+Brunswick&destinations=Newark&key=AIzaSyCjiRhQBhF8bzzGerHIDHDYd9-emmB-0PU";
+                https.get(url, function(res) {
+                    var result;
+                    var body = '';
+                    res.on('data', function(data) {
+                        body += data;
+                    });
+                    res.on('end', function() {
+                        result = JSON.parse(body);
+                        var str = result.rows[0].elements[0].distance.text;
+                        speech = "Distance: " + str;
+                    });
+                });
+    }
+    //else speech = 'No intent was called';
     return res.json({
         speech: speech,
         displayText: speech,

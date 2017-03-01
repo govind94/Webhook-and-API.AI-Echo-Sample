@@ -15,8 +15,14 @@ restService.use(bodyParser.json());
 restService.post('/echo', function(req, res) {
     //var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     var speech = '';
-    if (req.body.result.metadata.intentName === 'weather')
+    if (req.body.result.metadata.intentName === 'weather') {
         speech = 'weather intent was called';
+        return res.json({
+        speech: speech,
+        displayText: speech,
+        source: 'webhook-echo-sample'
+    });
+    }
     else if (req.body.result.metadata.intentName === 'directions') {
         //speech = 'directions intent was called';
         var url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=New+Brunswick&destinations=Newark&key=AIzaSyCjiRhQBhF8bzzGerHIDHDYd9-emmB-0PU";
@@ -30,15 +36,15 @@ restService.post('/echo', function(req, res) {
                         result = JSON.parse(body);
                         var str = result.rows[0].elements[0].distance.text;
                         speech = "Distance: " + str;
-                    });
-                });
-    }
-    //else speech = 'No intent was called';
-    return res.json({
+                        return res.json({
         speech: speech,
         displayText: speech,
         source: 'webhook-echo-sample'
     });
+                    });
+                });
+    }
+    //else speech = 'No intent was called';
 });
 
 restService.listen((process.env.PORT || 8000), function() {

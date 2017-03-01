@@ -16,6 +16,7 @@ restService.post('/echo', function(req, res) {
     //var speech = req.body.result && req.body.result.parameters && req.body.result.parameters.echoText ? req.body.result.parameters.echoText : "Seems like some problem. Speak again."
     var speech = '';
     if (req.body.result.metadata.intentName === 'weather') {
+        console.log("WEATHERRRRRRRRRRRRRRRRRR");
         speech = 'weather intent was called';
         return res.json({
         speech: speech,
@@ -25,14 +26,17 @@ restService.post('/echo', function(req, res) {
     }
     else if (req.body.result.metadata.intentName === 'directions') {
         //speech = 'directions intent was called';
+        console.log("111111111111111111111");
         var url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=New+Brunswick&destinations=Newark&key=AIzaSyCjiRhQBhF8bzzGerHIDHDYd9-emmB-0PU";
                 https.get(url, function(res) {
+                    console.log("222222222222222222222");
                     var result;
                     var body = '';
                     res.on('data', function(data) {
                         body += data;
                     });
                     res.on('end', function() {
+                        console.log("3333333333333333333333");
                         result = JSON.parse(body);
                         var str = result.rows[0].elements[0].distance.text;
                         speech = "Distance: " + str;

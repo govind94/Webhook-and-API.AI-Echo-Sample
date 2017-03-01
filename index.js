@@ -27,7 +27,9 @@ restService.post('/echo', function(req, res) {
     else if (req.body.result.metadata.intentName === 'directions') {
         //speech = 'directions intent was called';
         console.log("111111111111111111111");
-        var url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=New+Brunswick&destinations=Newark&key=AIzaSyCjiRhQBhF8bzzGerHIDHDYd9-emmB-0PU";
+        var src = req.body.result.state[0];
+        var dest = req.body.result.state[1];
+        var url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins="+src+"&destinations="+dest+"&key=AIzaSyCjiRhQBhF8bzzGerHIDHDYd9-emmB-0PU";
                 https.get(url, function(resp) {
                     console.log("222222222222222222222");
                     var result;

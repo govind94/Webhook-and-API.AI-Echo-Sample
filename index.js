@@ -28,14 +28,14 @@ restService.post('/echo', function(req, res) {
         //speech = 'directions intent was called';
         console.log("111111111111111111111");
         var url = "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=New+Brunswick&destinations=Newark&key=AIzaSyCjiRhQBhF8bzzGerHIDHDYd9-emmB-0PU";
-                https.get(url, function(res) {
+                https.get(url, function(resp) {
                     console.log("222222222222222222222");
                     var result;
                     var body = '';
-                    res.on('data', function(data) {
+                    resp.on('data', function(data) {
                         body += data;
                     });
-                    res.on('end', function() {
+                    resp.on('end', function() {
                         console.log("3333333333333333333333");
                         result = JSON.parse(body);
                         var str = result.rows[0].elements[0].distance.text;

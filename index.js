@@ -19,8 +19,19 @@ restService.post('/echo', function(req, res) {
         console.log("WEATHERRRRRRRRRRRRRRRRRR");
         if (req.body.result.parameters.city === "") speech = "Enter city";
         else speech = 'weather intent was called';
+        var data = {
+            "facebook": {
+                "attachment": {
+                    "type": "file",
+                    "payload": {
+                        "url": "http://www.pdf995.com/samples/pdf.pdf"
+                     }
+                 }
+             }
+        }
         return res.json({
         speech: speech,
+        data: data,
         displayText: speech,
         source: 'webhook-echo-sample'
     });

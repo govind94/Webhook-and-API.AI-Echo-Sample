@@ -22,7 +22,7 @@ restService.post('/echo', function(req, res) {
         var data = {
             "facebook": {
                 "attachment": {
-                    "type": "video",
+                    "type": "image",
                     "payload": {
                         "url": "https://res-4.cloudinary.com/simpleview/image/upload/c_fill,f_auto,h_878,q_75,w_1903/v1/clients/boston/66b874f0_48f2_45fc_8d07_005732c5cc5c_0295e791-cf9f-4b9e-ba4e-246c196fe701.jpg"
                      }

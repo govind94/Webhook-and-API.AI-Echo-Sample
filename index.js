@@ -17,7 +17,8 @@ restService.post('/echo', function(req, res) {
     var speech = '';
     if (req.body.result.metadata.intentName === 'weather') {
         console.log("WEATHERRRRRRRRRRRRRRRRRR");
-        speech = 'weather intent was called';
+        if (req.body.result.parameters.city === "") speech = "Enter city";
+        else speech = 'weather intent was called';
         return res.json({
         speech: speech,
         displayText: speech,
